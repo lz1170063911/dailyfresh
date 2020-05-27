@@ -130,3 +130,6 @@ USE_TZ = True
 # 要先在根目录下创建一个static文件目录
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Django认证系统使用的模型类，替换Django默认生成的auth_user
+AUTH_USER_MODEL = 'user.User'
