@@ -38,17 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'goods',
-    'cart',
-    'order',
+    'apps.user',
+    'apps.goods',
+    'apps.cart',
+    'apps.order',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -133,3 +133,35 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Django认证系统使用的模型类，替换Django默认生成的auth_user
 AUTH_USER_MODEL = 'user.User'
+
+# 发送邮件配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# smpt服务器地址
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+# 发送邮件的邮箱
+EMAIL_HOST_USER = 'programmer_lizhe@163.com'
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'CYPISZLHQSGYEQAM'
+# 收件人看到的发件人
+EMAIL_FROM = '天天生鲜<programmer_lizhe@163.com>'
+
+# Django的缓存配置
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://10.226.132.131:63799/3',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+# 配置session存储
+# 存储在缓存中：如果丢失则不能找回，比数据库的方式读写更快
+# 若没有设置CACHES,则存储在本机内存中，若设置了CACHES,则存储到设置的缓存中（redis）
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+# 配置登录url地址
+LOGIN_URL = '/user/login'
